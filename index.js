@@ -8,7 +8,7 @@ const body_parser = require("body-parser");
 
 // CORS options.
 const corsOptions = {
-  origin: `http://localhost:8000`,
+  origin: `https://asimpleblog.netlify.app`,
   methods: "GET,POST,PATCH,DELETE,OPTIONS",
   optionsSuccessStatus: 200,
   credentials: true,
