@@ -1,11 +1,10 @@
-require("dotenv").config()
+require("dotenv").config();
 
-const PORT = 5000
-const uri = process.env.DB_URL
+const uri = process.env.DB_URL;
 
-const express = require("express")
-const cors = require("cors")
-const body_parser = require("body-parser")
+const express = require("express");
+const cors = require("cors");
+const body_parser = require("body-parser");
 
 // CORS options.
 const corsOptions = {
@@ -13,15 +12,15 @@ const corsOptions = {
   methods: "GET,POST,PATCH,DELETE,OPTIONS",
   optionsSuccessStatus: 200,
   credentials: true,
-}
+};
 
 // Routes.
-const routes = require("./routes")
+const routes = require("./routes");
 
 // MongoDB.
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const app = express()
+const app = express();
 
 mongoose
   .connect(`${uri}`, {
@@ -30,27 +29,27 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => console.log(`Connected to MongoDB.`))
-  .catch(err => console.error(`Error:\n${err}.`))
+  .catch((err) => console.error(`Error:\n${err}.`));
 
-app.use(cors(corsOptions))
-app.use(body_parser.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(cors(corsOptions));
+app.use(body_parser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Default response from '/'.
 app.get("/", (req, res) => {
-  res.send(`Express server at port ${PORT}.`)
-})
+  res.send(`Express server at port ${PORT}.`);
+});
 
 // User services - route prefix: /api/user/
-app.use("/user/login", routes.login)
-app.use("/user/register", routes.register)
-app.use("/user/logout", routes.logout)
+app.use("/user/login", routes.login);
+app.use("/user/register", routes.register);
+app.use("/user/logout", routes.logout);
 
 // Blog services - route prefix: /api/blog/
-app.use("/blog/content", routes.blog)
-app.use("/blog/contact", routes.contact)
-app.use("/blog/comment", routes.comment)
+app.use("/blog/content", routes.blog);
+app.use("/blog/contact", routes.contact);
+app.use("/blog/comment", routes.comment);
 
-app.listen(PORT, () => {
-  console.log(`Server started.`)
-})
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server started.`);
+});
