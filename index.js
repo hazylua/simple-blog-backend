@@ -37,7 +37,7 @@ app.use(express.json());
 
 // Default response from '/'.
 app.get("/", (req, res) => {
-  res.send(`Express server at port ${PORT}.`);
+  res.send(`Express server at port ${process.env.PORT}.`);
 });
 
 // User services - route prefix: /api/user/
